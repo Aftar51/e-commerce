@@ -42,6 +42,9 @@
 
 <body>
 
+    {{-- navbar --}}
+    @include('layouts.include.navbar')
+
     <!-- ======= Sidebar ======= -->
     @if (Auth::user()->role == 'admin')
         @include('layouts.include.sidebar.admin')
