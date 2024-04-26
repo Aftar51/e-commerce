@@ -19,11 +19,16 @@ class Product extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(category::class);
     }
 
     public function product_galleries()
     {
         return $this->hasMany(ProductGallery::class);
+    }
+
+    public function cart()
+    {
+        return $this->hasMany(Cart::class);
     }
 }
