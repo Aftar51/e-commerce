@@ -26,7 +26,7 @@ class Transaction extends Model
         return $this->belongsTo(User::class);
     }
 
-    protected function transactionItems() 
+    protected function transaction_Items() 
     {
         return $this->hasMany(TransactionItems::class);
     }
