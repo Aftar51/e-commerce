@@ -14,10 +14,10 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         $user = new User();
-        $user->name = 'admin@gmail.com';
-        $user->email = bcrypt('admin');
-        $user->password = 'admin';
+        $user->name = 'admin';
+        $user->email = 'admin@gmail.com';
+        $user->password = bcrypt('admin');
 
-        $user->user();
+        $user->save();
     }
 }
