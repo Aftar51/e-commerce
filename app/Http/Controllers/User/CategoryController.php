@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\user;
 
-use App\Http\Controllers\Controller;
+use App\Models\category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Exception;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -12,7 +16,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('pages.user.category.index');
+        $category = category::select('id', 'name', 'image')->latest()->get();
+        return view('pages.user.category.index', compact(
+            'category'
+        ));
     }
 
     /**
@@ -20,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -28,7 +35,29 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
+        ]);
+
+
+        try {
+            $data = $request->all();
+
+            // storage image
+            $image = $request->file('image');
+            $image->storeAs('public/category', $image->hashName());
+
+            $data['image'] = $image->hashName();
+            $data['slug'] = Str::slug($request->name);
+
+            Category::create($data);
+
+            return redirect()->back()->with('success', 'successfully');
+        } catch (Exception $e) {
+            // dd($e->getMessage());
+            return redirect()->back()->with('error', 'Failed to add failed');
+        }
     }
 
     /**
@@ -52,7 +81,41 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
+        ]);
+        
+        $category = Category::find($id);
+
+        try {
+            if ($request->file('image') == '') {
+                $data = $request->all();
+                $data['slug'] = Str::slug($request->name);
+                
+                $category->update($data);
+
+                return redirect()->back()->with('success', 'successfully');
+            } else {
+                //delete old image
+                Storage::disk('local')->delete('public/category/' . basename($category->image));
+
+                //storage new image
+                $image = $request->file('image');
+                $image->storeAs('public/category', $image->hashName());
+
+                $data = $request->all();
+                $data['image'] = $image->hashName();
+                $data['slug'] = Str::slug($request->name);
+
+                $category->update($data);
+            }
+
+            return redirect()->back()->with('success', 'successfully');
+        } catch (Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with('error', 'Failed to update failed');
+        }
     }
 
     /**
@@ -60,6 +123,18 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            // find by id
+            $category = Category::find($id);
+
+            Storage::disk('local')->delete('public/category/' . basename($category->image));
+
+            $category->delete();
+
+            return redirect()->back()->with('success', 'successfully');
+        } catch (Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with('error', 'Failed to add failed');
+        }
     }
 }
