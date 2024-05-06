@@ -34,7 +34,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($product  as $row)
+                @forelse ($product as $row)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $row->name }}</td>

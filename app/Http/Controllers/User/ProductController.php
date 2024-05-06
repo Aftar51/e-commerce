@@ -50,7 +50,7 @@ class ProductController extends Controller
 
             Product::create($data);
 
-            return redirect()->back()->with('success', 'Successfully Updute');
+            return redirect()->back()->with('success', 'Add Successfully');
         } catch (Exception $e) {
             // dd($e->getMessage());
             return redirect()->back()->with('error', 'Failed to add failed');
@@ -87,7 +87,15 @@ class ProductController extends Controller
         $product = Product::find($id);
 
         try {
+            $product = Product::find($id);
             
+            $data = $request->all();
+            
+            $data['slug'] = Str::slug($request->name);
+
+            $product->update($data);
+
+            return redirect()->back()->with('success', 'successfully Update');
         } catch (Exception $e) {
             dd($e->getMessage());
             return redirect()->back()->with('error', 'Failed to update failed');

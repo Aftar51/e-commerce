@@ -15,7 +15,7 @@
                 </div>
                 <div class="col-md-12">
                     <label for="CategoryImage" class="form-label">Category Image</label>
-                    <input type="file" class="form-control" id="CategoryImage" name="image">
+                    <input type="file" class="form-control" id="CategoryImage" name="image" value="{{ value($row->image0) }}">
                 </div>
                 <div class="col-12">
                     <img src="#" alt="category-image" id="preview-logo" class="visually-hidden img-thumbnail">
