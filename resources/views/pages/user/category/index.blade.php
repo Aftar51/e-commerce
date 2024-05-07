@@ -48,7 +48,7 @@
                                     <i class="bi bi-pencil"></i>
                                 </button>
                                 @include('pages.user.category.modal-edit')
-                                <form action="{{ route('user.category.destroy', $row->id) }}" method="post"
+                                <form action="{{ route('admin.category.destroy', $row->id) }}" method="post"
                                     class="d-inline">
                                     @csrf
                                     @method('DELETE')

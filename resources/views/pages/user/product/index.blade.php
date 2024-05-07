@@ -40,14 +40,17 @@
                         <td>{{ $row->name }}</td>
                         <td>{{ $row->category->name }}</td>
                         <td>{{ Str::limit(strip_tags($row->description)) }}</td>
-                        <td>{{ $row->price }}</td>
+                        <td>Rp{{ $row->price }}</td>
                         <td>
-                            <button class="btn btn-warning" type="button" data-bs-toggle="modal"
+                            <a href="{{ route('admin.product.gallery.index', $row->id) }}" class="btn btn-info">
+                                <i class="bi bi-card-image"></i>
+                            </a>
+                            <a class="btn btn-warning" data-bs-toggle="modal"
                                 data-bs-target="#editModalProduct{{ $row->id }}">
                                 <i class="bi bi-pencil"></i>
-                            </button>
+                            </a>
                             @include('pages.user.product.modal-edit')
-                            <form action="{{ route('user.product.destroy', $row->id) }}" method="post"
+                            <form action="{{ route('admin.product.destroy', $row->id) }}" method="post"
                                 class="d-inline">
                                 @csrf
                                 @method('DELETE')
