@@ -1,5 +1,7 @@
 @extends('layouts.parent')
 
+
+
 @section('content')
     <div class="card">
         <div class="card-body">
@@ -13,7 +15,11 @@
                 </ol>
             </nav>
 
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
+            <a href="{{ route('admin.product.index') }}" class="btn btn-primary">
+                <i class="bi bi-arrow-left"></i> bank
+            </a>
+
+            <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
                 <i class="bi bi-plus"></i> Tambah Gallery
             </button>
 
@@ -28,11 +34,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Gambar</td>
-                        <td>Action</td>
-                    </tr>
+                    @forelse ($product->product_galleries as $row)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>
+                                <img src="{{ asset('storage/product/gallery/' . $row->image) }}" alt="" class="img thumnail" width="100">
+                            </td>
+                            <td>
+                                <form action="{{ route('admin.product.gallery.destroy', [$product->id, $row->id]) }}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="btn btn-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="3" class="text-center">Data Not Found</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

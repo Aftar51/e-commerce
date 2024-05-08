@@ -15,12 +15,12 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::name('admin.')->prefix('admin')->middleware('admin')->group(function () {
-    Route::get('/dashbord', [\App\Http\Controllers\Admin\DashbordController::class, 'index'])->name('dashbord');
-    Route::get('/dashbord', [\App\Http\Controllers\user\DashbordController::class, 'index'])->name('dashbord');
+    Route::get('/dashboard', [\App\Http\Controllers\Admin\DashbordController::class, 'index'])->name('dashbord');
     Route::resource('/category', CategoryController::class)->except(['create', 'show', 'edit']);
     Route::resource('/product', ProductController::class)->except(['create', 'show', 'edit']);
     Route::resource('/product.gallery', ProductGalleryController::class)->except('create', 'show', 'edit', 'update');
 });
 
-Route::name('user.')->prefix('user')->middleware('user')->group(function () {
+Route::prefix('user')->name('user.')->middleware('user')->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\user\DashbordController::class, 'index'])->name('dashbord');
 });

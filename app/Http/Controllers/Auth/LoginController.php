@@ -27,12 +27,12 @@ class LoginController extends Controller
      */
     protected function redirectTo() 
     {
-        if(auth()->user()->role == 'admin')
-        {
-            return route('admin.dashbord');
-        } elseif(auth()->user()->role == 'user')
-        {
-            return route('user.dashbord');
+        if (auth()->user()->role == 'admin') {
+            return '/admin/dashbord';
+        } elseif (auth()->user()->role == 'user') {
+            return '/user/dashbord';
+        } else {
+            return '/home';
         }
     }
 
