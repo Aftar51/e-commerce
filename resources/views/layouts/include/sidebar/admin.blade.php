@@ -29,4 +29,24 @@
             </ul>
         </li><!-- End Components Nav -->
 
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('admin.transition.*', 'admin.my-transition.*') ? '' : 'collapsed' }}" data-bs-target="#components-transition" data-bs-toggle="collapse"
+                href="#">
+                <i class="bi bi-menu-button-wide"></i><span>Transaction</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-transition" class="nav-content collapse {{ request()->routeIs('admin.transition.*') ? 'show' : 'show' }}" data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('admin.transition.index') }}" class="{{ request()->routeIs('admin.transition.index') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>Transaction</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.my-transition.index') }}" class="{{ request()->routeIs('admin.my-transition.index', 'admin.my-transition.show') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>My Transaction</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
 </aside>
