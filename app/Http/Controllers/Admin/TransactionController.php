@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -12,7 +13,11 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.transition.index');
+        $transaction = Transaction::select('id', 'name', 'email')->latest()->get();
+
+        return view('pages.admin.transition.index', compact(
+            'transaction'
+        ));
     }
 
     /**

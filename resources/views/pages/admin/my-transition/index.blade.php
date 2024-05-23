@@ -22,7 +22,7 @@
         <div class="card-body">
             <div class="card-title"><i class="bi bi-cart"></i> List Transaction</div>
 
-            <table class="table table-striped table-hover table-bordered datatable">
+        <table class="table  table-hover table-bordered datatable">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -30,6 +30,7 @@
                         <th>Reciever Name</th>
                         <th>Email</th>
                         <th>Phone</th>
+                        <th>Status</th>
                         <th>Total Price</th>
                         <th>Action</th>
                     </tr>
@@ -40,10 +41,22 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ auth()->user()->name }}</td>
                             <td>{{ $row->user->name }}</td>
-                            <td>admin@gmail.com</td>
-                            <td>000000000000000</td>
-                            <td>Rp.100.000.000</td>
-                            <td>show</td>
+                            <td>{{ $row->user->email }}</td>
+                            <td>{{ $row->phone }}</td>
+                            <td>
+                                @if ($row->status == 'EXPIRED')
+                                <span class="badge bg-danger">EXPIRED</span>
+                                @elseif ($row->status == 'PENDING')
+                                <span class="badge bg-warning">PENDING</span>
+                                @elseif ($row->status == 'SETTLEMENT')
+                                <span class="badge bg-info">SETTLEMENT</span>
+                                @else
+                                <span class="badge bg-success">SUCCESS</span>
+                                @endif</td>
+                            <td>Rp.{{ $row->total_price }}</td>
+                            <td>
+                                <a href="" class="btn btn-info"><i class="bi bi-image"></i></a>
+                            </td>
                         </tr>
                     @empty
                     @endforelse
