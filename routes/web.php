@@ -29,11 +29,13 @@ Route::name('admin.')->prefix('admin')->middleware('admin')->group(function () {
     Route::resource('/product', ProductController::class)->except(['create', 'show', 'edit']);
     Route::resource('/product.gallery', ProductGalleryController::class)->except('create', 'show', 'edit', 'update');
     Route::resource('/transition', TransactionController::class);
-    Route::resource('/my-transition', MyTransactionController::class)->only('index', 'show');
+    Route::resource('/my-transition', MyTransactionController::class)->only(['index']);
+    Route::get('/my-transition/{id}/{slug}', [MyTransactionController::class, 'showDataBySlugAndId'])->name('my-transaction.showDataBySlugAndId');
 });
 
 Route::prefix('user')->name('user.')->middleware('user')->group(function () {
     Route::get('/dashbord', [\App\Http\Controllers\user\DashbordController::class, 'index'])->name('dashbord');
-    Route::resource('/my-transition', MyTransactionController::class)->only('index', 'show');
+    Route::resource('/my-transition', MyTransactionController::class)->only(['index']);
+    Route::get('/my-transition/{id}/{slug}', [MyTransactionController::class, 'showDataBySlugAndId'])->name('my-transaction.showDataBySlugAndId');
 });
 
