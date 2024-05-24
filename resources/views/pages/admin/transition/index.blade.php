@@ -31,6 +31,7 @@
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Total Price</th>
+                        <th>payment URL</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -39,22 +40,23 @@
                     @forelse ($transaction as $row)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ auth()->user()->name }}</td>
+                            <td>{{ $row->user->name }}</td>
                             <td>{{ $row->name }}</td>
                             <td>{{ $row->email }}</td>
                             <td>{{ $row->phone }}</td>
+                            <td>{{ $row->total_price }}</td>
+                            <td><a href="{{ $row->payment_url }}">MIDTRANS</a></td>
                             <td>
                                 @if ($row->status == 'EXPIRED')
-                                <span class="badge bg-danger text-uppercase">EXPIRED</span>
+                                    <span class="badge bg-danger text-uppercase">EXPIRED</span>
                                 @elseif ($row->status == 'PENDING')
-                                <span class="badge bg-warning text-uppercase">PENDING</span>
+                                    <span class="badge bg-warning text-uppercase">PENDING</span>
                                 @elseif ($row->status == 'SETTLEMENT')
-                                <span class="badge bg-info text-uppercase">SETTLEMENT</span>
+                                    <span class="badge bg-info text-uppercase">SETTLEMENT</span>
                                 @else
-                                <span class="badge bg-success text-uppercase">SUCCESS</span>
+                                    <span class="badge bg-success text-uppercase">SUCCESS</span>
                                 @endif
                             </td>
-                            <td>Rp.{{ $row->total_price }}</td>
                             <td>
                                 <a href="" class="btn btn-info"><i class="bi bi-image"></i></a>
                             </td>

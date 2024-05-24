@@ -9,6 +9,7 @@ use Midtrans\Config;
 use App\Models\Product;
 use App\Models\category;
 use App\Models\Transaction;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\TransactionItems;
 use App\Http\Controllers\Controller;
@@ -110,11 +111,14 @@ class FronEndController extends Controller
             $transaction = Transaction::create([
                 'user_id' => auth()->user()->id,
                 'name' => $data['name'],
+                'slug' => Str::slug($data['name']) . '-' . time(),
                 'email' => $data['email'],
                 'address' => $data['address'],
                 'phone' => $data['phone'],
                 'total_price' => $cart->sum('product.price')
             ]);
+
+            // dd($transaction);   
 
             //create transaction item
             foreach($cart as $item) {

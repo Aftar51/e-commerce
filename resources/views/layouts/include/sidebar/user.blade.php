@@ -10,13 +10,15 @@
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-menu-button-wide"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
+            <a class="nav-link {{ request()->routeIs('user.my-transition.*') ? '' : 'collapsed' }}" data-bs-target="#components-transition" data-bs-toggle="collapse"
+                href="#">
+                <i class="bi bi-menu-button-wide"></i><span>Transaction</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <ul id="components-transition" class="nav-content collapse {{ request()->routeIs('user.transition.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-circle"></i><span>Alerts</span>
+                    <a href="{{ route('user.my-transition.index') }}" class="{{ request()->routeIs('user.my-transition.index', 'user.my-transition.show') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>My Transaction</span>
                     </a>
                 </li>
             </ul>
