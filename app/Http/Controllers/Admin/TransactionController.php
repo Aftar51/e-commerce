@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
+use Exception;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -57,7 +58,18 @@ class TransactionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // get data transaction id
+        $transaction = Transaction::findOrFail($id);
+
+        try {
+            $transaction->update([
+                'status' => $request->status,
+            ]);
+
+            return redirect()->route('admin.my-transition.index')->with('success', 'Berhasil');
+        } catch (Exception $e) {
+            return redirect()->route('admin.transition.index')->with('error', 'Gagal');
+        }
     }
 
     /**

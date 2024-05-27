@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\category;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -18,7 +19,12 @@ class DashbordController extends Controller
         return view('pages.admin.index', compact(
             'category',
             'product',
-            'user'
+            'user',
+            'myPanding',
+            'mySettlement',
+            'myExpired' 
         ));
     }
+
+
 }

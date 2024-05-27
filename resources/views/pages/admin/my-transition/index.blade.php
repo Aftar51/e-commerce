@@ -17,6 +17,55 @@
             </nav>
         </div>
     </div>
+    <div class="section dashboard">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card info-card sales-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Padding</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-cart"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>{{ $myPanding }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card info-card sales-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Settlement</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-cart"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>{{ $mySettlement }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card info-card sales-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Expired</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-cart"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>{{ $myExpired }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
 
     <div class="card">
         <div class="card-body">
@@ -57,10 +106,10 @@
                             <td>Rp.{{ $row->total_price }}</td>
                             <td>
                                 @if (Auth::user()->role == 'admin')
-                                    <a href="{{ route('admin.my-transition.show', $row->name) }}" class="btn btn-info btn-sm"><i
+                                    <a href="{{ route('admin.my-transaction.showDataBySlugAndId', [$row->slug, $row->id]) }}" class="btn btn-info btn-sm"><i
                                             class="bi bi-eye"></i></a> Details
                                 @else
-                                    <a href="{{ route('user.my-transition.show', $row->name) }}" class="btn btn-info btn-sm"><i
+                                    <a href="{{ route('user.my-transaction.showDataBySlugAndId', [$row->slug, $row->id]) }}" class="btn btn-info btn-sm"><i
                                             class="bi bi-eye"></i></a> Details
                                 @endif
                             </td>

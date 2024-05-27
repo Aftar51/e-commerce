@@ -16,9 +16,15 @@ class MyTransactionController extends Controller
     {
         // get data my transition
         $myTransaction = Transaction::where('user_id', auth()->user()->id)->get();
+        $myPanding = Transaction::count();
+        $mySettlement = Transaction::where('status', 'settlement')->count();
+        $myExpired = Transaction::where('status', 'expired')->count();
 
         return view('pages.admin.my-transition.index', compact(
-            'myTransaction'
+            'myTransaction',
+            'myPanding',
+            'mySettlement',
+            'myExpired'
         ));
     }
 

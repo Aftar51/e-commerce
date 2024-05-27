@@ -58,7 +58,13 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="" class="btn btn-info"><i class="bi bi-image"></i></a>
+                                <a href="#" class="btn btn-info btn-sm mx-2">show</a>
+                                <!-- Basic Modal -->
+                                <button type="button" class="btn btn-warning btn-sm m-2" data-bs-toggle="modal"
+                                data-bs-target="#updateStatus{{ $row->id }}">
+                                edit
+                            </button>
+                            @include('pages.admin.transition.modal-edit')
                             </td>
                         </tr>
                     @empty
